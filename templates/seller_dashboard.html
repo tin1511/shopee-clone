@@ -1,0 +1,31 @@
+<h1>🏪 Trang người bán</h1>
+
+<a href="/seller/add/">➕ Đăng sản phẩm</a>
+<a href="/seller/chat/">💬 Tin nhắn khách hàng</a>
+<hr>
+
+{% for product in products %}
+
+<div style="border:1px solid gray;padding:10px;margin:10px">
+
+{% if product.image %}
+<img src="{{product.image.url}}" width="150">
+{% endif %}
+
+<h3>{{product.name}}</h3>
+
+<p>{{product.price}} VND</p>
+
+</div>
+
+{% endfor %}
+
+<a href="/" style="
+background:#ff5722;
+color:white;
+padding:8px 15px;
+border-radius:5px;
+text-decoration:none;
+">
+⬅ Quay lại trang chủ
+</a>

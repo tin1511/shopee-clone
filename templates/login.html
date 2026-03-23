@@ -1,0 +1,14 @@
+<h2>Đăng nhập</h2>
+
+<form method="POST">
+{% csrf_token %}
+
+<input name="username" placeholder="Tên tài khoản">
+
+<input type="password" name="password" placeholder="Mật khẩu">
+
+<button>Đăng nhập</button>
+
+</form>
+
+<a href="/register/">Đăng ký</a>

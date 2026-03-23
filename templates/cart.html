@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Giỏ hàng</title>
+
+<style>
+
+body{
+    font-family: Arial;
+    background:#f5f5f5;
+    padding:40px;
+}
+
+.container{
+    width:800px;
+    margin:auto;
+}
+
+h1{
+    margin-bottom:20px;
+}
+
+.item{
+    background:white;
+    padding:20px;
+    margin-bottom:15px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.price{
+    color:#ee4d2d;
+    font-weight:bold;
+}
+
+.back{
+    display:inline-block;
+    margin-top:20px;
+    text-decoration:none;
+    background:#ee4d2d;
+    color:white;
+    padding:10px 20px;
+    border-radius:6px;
+}
+
+.back:hover{
+    background:#d83c1a;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🛒 Giỏ hàng của bạn</h1>
+
+{% if cart_items %}
+
+{% for item in cart_items %}
+
+<div class="item">
+
+<div>
+<b>{{ item.product.name }}</b><br>
+<span class="price">{{ item.product.price }} VND</span>
+</div>
+
+<div>
+SL: {{ item.quantity }}
+</div>
+
+</div>
+
+{% endfor %}
+
+{% else %}
+
+<p>Giỏ hàng trống</p>
+
+{% endif %}
+
+<a href="/" class="back">⬅ Quay lại mua hàng</a>
+
+</div>
+<h2>Tổng tiền: {{total}} VND</h2>
+</body>
+</html>

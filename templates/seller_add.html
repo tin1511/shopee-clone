@@ -1,0 +1,65 @@
+<h2>➕ Đăng sản phẩm</h2>
+
+<form method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+
+<input name="name" placeholder="Tên sản phẩm">
+
+<br><br>
+
+<input name="price" placeholder="Giá">
+
+<br><br>
+
+<input type="file" name="image">
+
+<br><br>
+
+<button>Đăng bán</button>
+
+</form>
+
+<hr>
+
+<h2>📦 Sản phẩm của shop</h2>
+
+{% for product in products %}
+
+<div style="border:1px solid #ccc;padding:10px;width:200px;margin-bottom:10px;border-radius:8px;">
+
+<h3>{{ product.name }}</h3>
+
+<p>{{ product.price }} VND</p>
+
+{% if product.image %}
+<img src="{{ product.image.url }}" width="150">
+{% endif %}
+
+<br><br>
+
+<a href="/edit-product/{{ product.id }}/">
+<button>Sửa</button>
+</a>
+
+<a href="/delete-product/{{ product.id }}/"
+onclick="return confirm('Bạn chắc muốn xóa sản phẩm này?')">
+<button style="background:red;color:white;">Xóa</button>
+</a>
+
+</div>
+
+{% empty %}
+
+<p>Chưa có sản phẩm nào</p>
+
+{% endfor %}
+
+<a href="/" style="
+background:#ff5722;
+color:white;
+padding:8px 15px;
+border-radius:5px;
+text-decoration:none;
+">
+⬅ Quay lại trang chủ
+</a>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Shopee Mini</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#f5f5f5;
+}
+
+/* HEADER */
+
+.header{
+background:#ee4d2d;
+padding:15px;
+color:white;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{
+font-size:20px;
+font-weight:bold;
+}
+
+.search-box{
+display:flex;
+width:400px;
+background:white;
+border-radius:25px;
+overflow:hidden;
+}
+
+.search-box input{
+flex:1;
+border:none;
+padding:10px 15px;
+outline:none;
+}
+
+.search-box button{
+background:#ee4d2d;
+border:none;
+color:white;
+padding:10px 20px;
+cursor:pointer;
+}
+
+.search-box button:hover{
+background:#d8431f;
+}
+
+/* FLASH SALE */
+
+.banner{
+background:#ff6a3d;
+color:white;
+text-align:center;
+padding:40px;
+font-size:28px;
+font-weight:bold;
+}
+
+/* CATEGORY */
+
+.categories{
+display:flex;
+justify-content:center;
+gap:15px;
+padding:15px;
+background:white;
+}
+
+.categories div{
+padding:8px 20px;
+border:1px solid #ddd;
+border-radius:5px;
+cursor:pointer;
+}
+
+.categories div:hover{
+background:#ee4d2d;
+color:white;
+}
+
+/* PRODUCT GRID */
+
+.products{
+width:90%;
+margin:auto;
+margin-top:30px;
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+gap:20px;
+}
+
+.product{
+background:white;
+padding:15px;
+border-radius:8px;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
+transition:0.2s;
+}
+
+.product:hover{
+transform:translateY(-5px);
+}
+
+.product img{
+width:100%;
+height:150px;
+object-fit:cover;
+border-radius:6px;
+}
+
+.price{
+color:#ee4d2d;
+font-weight:bold;
+}
+
+.btn{
+display:inline-block;
+margin-top:10px;
+padding:6px 10px;
+background:#ee4d2d;
+color:white;
+text-decoration:none;
+border-radius:4px;
+}
+
+.btn:hover{
+background:#d8431f;
+}
+
+.user{
+font-size:14px;
+}
+
+.user a{
+color:white;
+margin-left:10px;
+text-decoration:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="header">
+
+<div class="logo">Shopee Mini</div>
+
+<form class="search-box" method="GET">
+
+<input type="text" name="search" placeholder="🔍 Tìm sản phẩm...">
+
+<button>Tìm</button>
+
+</form>
+
+<div class="user">
+
+{% if user.is_staff %}
+
+<a href="/dashboard/" style="color:white">
+⚙ Quản lý shop
+</a>
+
+{% endif %}
+
+{% if user.is_authenticated %}
+
+Xin chào <b>{{user.username}}</b>
+
+<a href="/logout/">Đăng xuất</a>
+
+{% else %}
+
+<a href="/login/">Đăng nhập</a>
+
+<a href="/register/">Đăng ký</a>
+
+<a href="/register-seller/">Đăng ký bán hàng</a>
+
+{% endif %}
+
+🛒 <a href="/cart">Giỏ hàng</a>
+
+{% if request.user.profile.role == "seller" %}
+<a href="/seller/chat/">Chat với khách</a>
+<a href="/seller/add/">Quản lý shop</a>
+{% endif %}
+
+</div>
+
+</div>
+
+<!-- FLASH SALE -->
+
+<div class="banner">
+FLASH SALE ⚡
+</div>
+
+<!-- CATEGORY -->
+
+<div class="categories">
+
+<div>Điện thoại</div>
+<div>Laptop</div>
+<div>Thời trang</div>
+<div>Đồng hồ</div>
+<div>Giày</div>
+<div>Máy ảnh</div>
+
+</div>
+
+<!-- PRODUCTS -->
+
+<div class="products">
+
+{% for product in products %}
+
+<div class="product">
+
+{% if product.image %}
+<img src="{{ product.image.url }}">
+{% endif %}
+
+<h3>{{ product.name }}</h3>
+<p>{{ product.price }} VND</p>
+
+<a href="/add_to_cart/{{ product.id }}/">
+    <button>Thêm vào giỏ</button>
+</a>
+
+{% if request.user == product.seller %}
+<a href="/chat/{{ product.seller.id }}/">Chat với shop</a>
+{% endif %}
+
+</div>
+
+{% if request.user == product.seller %}
+<br>
+<a href="/edit-product/{{ product.id }}/">
+    <button style="background:#ff5722;color:white;">
+        Edit Product
+    </button>
+</a>
+{% endif %}
+
+{% empty %}
+
+<p>Không có sản phẩm</p>
+
+{% endfor %}
+
+</div>
+
+</body>
+</html>

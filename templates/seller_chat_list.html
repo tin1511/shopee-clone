@@ -1,0 +1,17 @@
+<h1>💬 Khách hàng nhắn tin</h1>
+
+{% for u in users %}
+
+<div style="border:1px solid #ccc;padding:10px;margin:10px">
+
+<b>{{u.username}}</b>
+
+<a href="/chat/{{u.id}}/">Trả lời</a>
+
+</div>
+
+{% empty %}
+
+<p>Chưa có khách nhắn</p>
+
+{% endfor %}

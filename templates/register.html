@@ -1,0 +1,25 @@
+<h2>Đăng ký</h2>
+
+<form method="POST">
+{% csrf_token %}
+
+<input name="username" placeholder="Tên tài khoản">
+
+<br><br>
+
+<input type="password" name="password" placeholder="Mật khẩu">
+
+<br><br>
+
+<select name="role">
+<option value="buyer">Người mua</option>
+<option value="seller">Người bán</option>
+</select>
+
+<br><br>
+
+<button>Đăng ký</button>
+
+</form>
+
+<a href="/login/">Đăng nhập</a>

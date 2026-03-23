@@ -1,0 +1,25 @@
+<h1>⚙ Quản lý sản phẩm</h1>
+
+<a href="/">← Trang chủ</a>
+
+<a href="/add-product/">➕ Thêm sản phẩm</a>
+
+<hr>
+
+{% for product in products %}
+
+<div style="border:1px solid gray;padding:10px;margin:10px">
+
+<img src="{{product.image.url}}" width="100">
+
+<h3>{{product.name}}</h3>
+
+<p>{{product.price}} VND</p>
+
+<a href="/edit-product/{{product.id}}/">✏ Sửa</a>
+
+<a href="/delete-product/{{product.id}}/">❌ Xoá</a>
+
+</div>
+
+{% endfor %}
