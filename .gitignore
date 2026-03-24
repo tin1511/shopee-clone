@@ -1,12 +1,4 @@
-<<<<<<< HEAD
 __pycache__/
-db.sqlite3
-*.pyc
-media/
-=======
-__pycache__/
-db.sqlite3
-*.pyc
-media/
->>>>>>> e6dd0943f7c0bff0c12f0607ce234ad572efda90
 .env
+db.sqlite3
+media/
