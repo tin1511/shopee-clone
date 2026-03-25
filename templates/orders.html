@@ -1,0 +1,10 @@
+<h2>📦 Đơn hàng của bạn</h2>
+
+{% for order in orders %}
+<div style="background:#eee; padding:10px; margin:10px;">
+    <p>Tổng tiền: {{ order.total }} VND</p>
+    <p>Ngày: {{ order.created }}</p>
+</div>
+{% endfor %}
+
+<a href="/">← Quay lại</a>
