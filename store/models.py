@@ -71,6 +71,15 @@ class Message(models.Model):
     def __str__(self):
         return f"{self.sender.username} -> {self.receiver.username}"
 
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    total = models.IntegerField()
+    created = models.DateTimeField(auto_now_add=True)
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
 
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
