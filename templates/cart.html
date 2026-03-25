@@ -1,56 +1,90 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Giỏ hàng</title>
-    <style>
-        body { font-family: Arial; }
-        .card {
-            background: #f5f5f5;
-            padding: 15px;
-            margin: 10px;
-            border-radius: 10px;
-        }
-        button {
-            padding: 5px 10px;
-            margin: 2px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .btn-add { background: green; color: white; }
-        .btn-sub { background: orange; color: white; }
-        .btn-del { background: red; color: white; }
-    </style>
+<title>Giỏ hàng</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #f5f5f5;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+}
+
+.card {
+    background: white;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.green { background: #28a745; color: white; }
+.orange { background: #ffc107; }
+.red { background: #dc3545; color: white; }
+
+.qty {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+</style>
+
+<script>
+function update(url){
+    fetch(url)
+    .then(() => location.reload())
+}
+</script>
+
 </head>
+
 <body>
 
-<h2>🛒 Giỏ hàng của bạn</h2>
+<div class="container">
+
+<h2>🛒 Giỏ hàng</h2>
 
 {% for item in cart_items %}
 <div class="card">
-    <h4>{{ item.product.name }}</h4>
-    <p>Giá: {{ item.product.price }} VND</p>
 
-    <p>
-        SL: {{ item.quantity }}
-        <a href="{% url 'increase' item.id %}">
-            <button class="btn-add">+</button>
-        </a>
-        <a href="{% url 'decrease' item.id %}">
-            <button class="btn-sub">-</button>
-        </a>
-    </p>
+    <div>
+        <h4>{{ item.product.name }}</h4>
+        <p>{{ item.product.price }} VND</p>
+    </div>
 
-    <a href="{% url 'remove' item.id %}" 
-       onclick="return confirm('Xoá sản phẩm này?')">
-        <button class="btn-del">❌ Xoá</button>
-    </a>
+    <div class="qty">
+        <button class="btn orange" onclick="update('/cart/decrease/{{item.id}}/')">-</button>
+        <b>{{ item.quantity }}</b>
+        <button class="btn green" onclick="update('/cart/increase/{{item.id}}/')">+</button>
+    </div>
+
+    <div>
+        <button class="btn red" onclick="update('/cart/remove/{{item.id}}/')">Xoá</button>
+    </div>
+
 </div>
 {% endfor %}
 
 <h3>💰 Tổng tiền: {{ total }} VND</h3>
 
-<a href="/">← Quay lại mua hàng</a>
+<button class="btn green" onclick="location.href='/checkout/'">
+    Thanh toán 🚀
+</button>
+
+</div>
 
 </body>
 </html>
