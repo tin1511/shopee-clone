@@ -4,6 +4,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path("cart/remove/<int:id>/", views.remove_from_cart, name="remove"),
+    
+    path("cart/increase/<int:id>/", views.increase_quantity, name="increase"),
+    
+    path("cart/decrease/<int:id>/", views.decrease_quantity, name="decrease"),
 
     path('', views.home),
 
