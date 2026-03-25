@@ -159,7 +159,44 @@ def view_cart(request):
         "total": total
     })
 
+# =====================
+# CART ACTIONS
+# =====================
 
+@login_required
+def remove_from_cart(request, id):
+
+    item = get_object_or_404(Cart, id=id, user=request.user)
+    item.delete()
+
+    return redirect("/cart")
+
+
+@login_required
+def increase_quantity(request, id):
+
+    item = get_object_or_404(Cart, id=id, user=request.user)
+
+    item.quantity += 1
+    item.save()
+
+    return redirect("/cart")
+
+
+@login_required
+def decrease_quantity(request, id):
+
+    item = get_object_or_404(Cart, id=id, user=request.user)
+
+    item.quantity -= 1
+
+    if item.quantity <= 0:
+        item.delete()
+    else:
+        item.save()
+
+    return redirect("/cart")
+    
 # =====================
 # CHAT
 # =====================
