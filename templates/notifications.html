@@ -1,0 +1,7 @@
+<h2>🔔 Thông báo</h2>
+
+{% for n in notifications %}
+<div style="background:#eee; margin:10px; padding:10px;">
+    {{ n.message }}
+</div>
+{% endfor %}
