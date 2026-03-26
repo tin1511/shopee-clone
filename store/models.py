@@ -27,7 +27,6 @@ class Product(models.Model):
     description = models.TextField(blank=True)
 
     image = models.ImageField(upload_to="products/", null=True, blank=True)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)  # 👈 THÊM DÒNG NÀY
 
     def __str__(self):
         return self.name
