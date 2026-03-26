@@ -356,6 +356,52 @@ def delete_product(request, id):
 
     return redirect("/seller/add/")
 
+# =====================
+# CHECKOUT
+# =====================
+
+@login_required
+def checkout(request):
+
+    cart_items = Cart.objects.filter(user=request.user)
+
+    total = 0
+    for item in cart_items:
+        total += item.product.price * item.quantity
+
+    from .models import Order, OrderItem
+
+    order = Order.objects.create(
+        user=request.user,
+        total=total
+    )
+
+    for item in cart_items:
+        OrderItem.objects.create(
+            order=order,
+            product=item.product,
+            quantity=item.quantity
+        )
+
+    cart_items.delete()
+
+    return redirect("/orders/")
+
+
+# =====================
+# ORDERS
+# =====================
+
+@login_required
+def orders(request):
+
+    from .models import Order
+
+    orders = Order.objects.filter(user=request.user)
+
+    return render(request, "orders.html", {
+        "orders": orders
+    })
 
 # =====================
 # ADMIN EDIT PRODUCT
