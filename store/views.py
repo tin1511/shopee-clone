@@ -432,3 +432,11 @@ def edit_product(request, id):
     return render(request, "edit_product.html", {
         "product": product
     })
+
+@login_required
+def notifications(request):
+    notifications = Notification.objects.filter(user=request.user).order_by('-created')
+
+    return render(request, "notifications.html", {
+        "notifications": notifications
+    })
