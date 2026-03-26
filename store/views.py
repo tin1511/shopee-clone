@@ -382,6 +382,11 @@ def checkout(request):
             product=item.product,
             quantity=item.quantity
         )
+        # 👇 THÔNG BÁO CHO NGƯỜI BÁN
+        Notification.objects.create(
+            user=item.product.owner,
+            message=f"Có người đặt {item.product.name} (SL: {item.quantity})"
+        )
 
     cart_items.delete()
 
