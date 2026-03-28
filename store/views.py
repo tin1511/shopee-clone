@@ -388,6 +388,10 @@ def checkout(request):
             user=item.product.owner,
             message=f"Có người đặt {item.product.name} (SL: {item.quantity})"
         )
+        Notification.objects.create(
+           user=request.user,
+           message="Bạn đã đặt hàng thành công!"
+        )
 
     cart_items.delete()
 
