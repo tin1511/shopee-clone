@@ -84,7 +84,11 @@ class OrderItem(models.Model):
 class Notification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     message = models.TextField()
+
     created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.message[:20]}"
 
 
 @receiver(post_save, sender=User)
